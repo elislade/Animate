@@ -10,16 +10,25 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    @IBOutlet weak var viewA: UIView!
+    @IBOutlet weak var viewB: UIView!
+    
+    @IBAction func TappedButton(_ sender: Any) {
+        
+        let containerView = UIView(frame: view.frame)
+        view.addSubview(containerView)
+        
+        if let animObjs = Animate.subviews(from: viewA, to: viewB, in: containerView) {
+            UIView.animate(
+                withDuration: 1.8,
+                delay: 0,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0.2,
+                options: .curveEaseInOut,
+                animations: animObjs.animate,
+                completion: animObjs.finish
+            )
+        }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
