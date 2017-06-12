@@ -20,13 +20,13 @@ class ViewController: UIViewController {
         
         if let animObjs = Animate.subviews(from: viewA, to: viewB, in: containerView) {
             UIView.animate(
-                withDuration: 1.8,
+                withDuration: 1,
                 delay: 0,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.2,
                 options: .curveEaseInOut,
-                animations: animObjs.animate,
-                completion: animObjs.finish
+                animations: animObjs.animations,
+                completion: animObjs.completion
             )
         }
     }

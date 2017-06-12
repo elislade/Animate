@@ -9,22 +9,24 @@
 import UIKit
 
 struct Animate {
-    static func subviews(from: UIView, to: UIView, in containerView:UIView) -> (animate:() -> Void, finish: (Bool) -> Void)? {
-        var pairs = [(from: UIView, to: UIView)]()
+    typealias AnimationCallback = (animations:() -> Void, completion: (Bool) -> Void)
+    
+    static func subviews(from: UIView, to: UIView, in containerView:UIView) -> AnimationCallback? {
+        var originalPairs = [(from: UIView, to: UIView)]()
         
         for view in from.subviews {
             if view.tag != 0 {
                 if let toV = to.viewWithTag(view.tag) {
-                    pairs.append((view, toV))
+                    originalPairs.append((view, toV))
                 }
             }
         }
         
-        if pairs.count == 0 { return nil }
+        if originalPairs.count == 0 { return nil }
         
-        var tempViews = [(from: UIView, to: UIView)]()
+        var tempPairs = [(from: UIView, to: UIView)]()
         
-        for pair in pairs {
+        for pair in originalPairs {
             guard let from = extrapolate(pair.from, into: containerView) else { return nil }
             guard let to = extrapolate(pair.to, into: containerView) else { return nil }
             
@@ -34,22 +36,22 @@ struct Animate {
             pair.from.isHidden = true
             pair.to.isHidden = true
             
-            tempViews.append((from, to))
+            tempPairs.append((from, to))
         }
         
         return (
-            animate: {
-                for view in tempViews {
-                    view.to.transform = CGAffineTransform.identity
-                    view.to.alpha = 1
+            animations: {
+                for pair in tempPairs {
+                    pair.to.transform = CGAffineTransform.identity
+                    pair.to.alpha = 1
                     
-                    view.from.transform = self.calculateMatchTransform(from: view.to, to: view.from)
-                    view.from.alpha = 0
+                    pair.from.transform = self.calculateMatchTransform(from: pair.to, to: pair.from)
+                    pair.from.alpha = 0
                 }
             },
-            finish: { finished in
+            completion: { finished in
                 containerView.removeFromSuperview()
-                for pair in pairs {
+                for pair in originalPairs {
                     pair.from.isHidden = false
                     pair.to.isHidden = false
                 }
@@ -60,7 +62,7 @@ struct Animate {
     private static func calculateMatchTransform(from: UIView, to: UIView) -> CGAffineTransform {
         let scaleX = from.frame.width / to.frame.width
         let scaleY = from.frame.height / to.frame.height
-        let scale = CGAffineTransform(scaleX:scaleX , y: scaleY)
+        let scale = CGAffineTransform(scaleX: scaleX , y: scaleY)
         
         let offSetX = from.center.x - to.center.x
         let offSetY = from.center.y - to.center.y
