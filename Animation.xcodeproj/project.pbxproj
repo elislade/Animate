@@ -8,21 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		1C14FBCC1EEB22F90077E619 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C14FBCB1EEB22F90077E619 /* AppDelegate.swift */; };
-		1C14FBCE1EEB22F90077E619 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C14FBCD1EEB22F90077E619 /* ViewController.swift */; };
 		1C14FBD11EEB22F90077E619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C14FBCF1EEB22F90077E619 /* Main.storyboard */; };
 		1C14FBD31EEB22F90077E619 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C14FBD21EEB22F90077E619 /* Assets.xcassets */; };
 		1C14FBD61EEB22F90077E619 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C14FBD41EEB22F90077E619 /* LaunchScreen.storyboard */; };
+		1C25903C20D5A4440015DD92 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25903B20D5A4440015DD92 /* MainViewController.swift */; };
+		1C25903E20D5ABB40015DD92 /* LayerExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C25903D20D5ABB40015DD92 /* LayerExtenstion.swift */; };
 		1C3B085A1EECF72000BE9482 /* AnimateSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3B08591EECF72000BE9482 /* AnimateSubviews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1C14FBC81EEB22F90077E619 /* Animation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Animation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C14FBCB1EEB22F90077E619 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1C14FBCD1EEB22F90077E619 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1C14FBD01EEB22F90077E619 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C14FBD21EEB22F90077E619 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C14FBD51EEB22F90077E619 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C14FBD71EEB22F90077E619 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C25903B20D5A4440015DD92 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		1C25903D20D5ABB40015DD92 /* LayerExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerExtenstion.swift; sourceTree = "<group>"; };
 		1C3B08591EECF72000BE9482 /* AnimateSubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimateSubviews.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -57,8 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				1C14FBCB1EEB22F90077E619 /* AppDelegate.swift */,
+				1C25903D20D5ABB40015DD92 /* LayerExtenstion.swift */,
 				1C3B08591EECF72000BE9482 /* AnimateSubviews.swift */,
-				1C14FBCD1EEB22F90077E619 /* ViewController.swift */,
+				1C25903B20D5A4440015DD92 /* MainViewController.swift */,
 				1C14FBCF1EEB22F90077E619 /* Main.storyboard */,
 				1C14FBD21EEB22F90077E619 /* Assets.xcassets */,
 				1C14FBD41EEB22F90077E619 /* LaunchScreen.storyboard */,
@@ -94,7 +97,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0900;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Eli Slade";
 				TargetAttributes = {
 					1C14FBC71EEB22F90077E619 = {
@@ -138,9 +141,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C14FBCE1EEB22F90077E619 /* ViewController.swift in Sources */,
 				1C14FBCC1EEB22F90077E619 /* AppDelegate.swift in Sources */,
 				1C3B085A1EECF72000BE9482 /* AnimateSubviews.swift in Sources */,
+				1C25903E20D5ABB40015DD92 /* LayerExtenstion.swift in Sources */,
+				1C25903C20D5A4440015DD92 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,12 +184,16 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -212,12 +220,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -235,12 +244,16 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
@@ -261,10 +274,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -275,12 +289,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N2V9KYH4KN;
 				INFOPLIST_FILE = Animation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elislade.Animation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -290,12 +304,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = N2V9KYH4KN;
 				INFOPLIST_FILE = Animation/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.elislade.Animation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
