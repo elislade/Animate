@@ -46,6 +46,13 @@ class MainViewController: UIViewController {
         return Float(round(place*value)/place)
     }
     
+    func isEnabled(_ bool:Bool) {
+        durationSlider.isEnabled = bool
+        velocitySlider.isEnabled = bool
+        dampingSlider.isEnabled = bool
+        runAnimationButton.isEnabled = bool
+    }
+    
     @IBAction func updateAnimationValue(_ sender: Any) {
         durationValueLabel.text = "(\(roundF(durationSlider.value)))"
         velocityValueLabel.text = "(\(roundF(velocitySlider.value)))"
@@ -53,6 +60,8 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func runAnimation(_ sender: Any) {
+        isEnabled(false)
+        
         if let block = Animate.subviews(from: fromView, to: toView, in: containerView) {
             UIView.animate(
                 withDuration: TimeInterval(durationSlider.value),
@@ -60,7 +69,10 @@ class MainViewController: UIViewController {
                 usingSpringWithDamping: CGFloat(dampingSlider.value),
                 initialSpringVelocity: CGFloat(velocitySlider.value),
                 animations: block.animations,
-                completion: block.completion
+                completion: { fin in
+                    block.completion(fin)
+                    self.isEnabled(true)
+                }
             )
         }
     }
