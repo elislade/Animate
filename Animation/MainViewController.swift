@@ -59,7 +59,6 @@ class MainViewController: UIViewController {
                 delay: 0,
                 usingSpringWithDamping: CGFloat(dampingSlider.value),
                 initialSpringVelocity: CGFloat(velocitySlider.value),
-                options: .curveEaseInOut,
                 animations: block.animations,
                 completion: block.completion
             )
