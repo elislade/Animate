@@ -117,6 +117,11 @@
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <inset key="contentEdgeInsets" minX="20" minY="16" maxX="20" maxY="16"/>
                                         <state key="normal" title="Run Animation"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="runAnimation:" destination="pTn-VV-6q8" eventType="touchUpInside" id="25y-dr-qP6"/>
                                         </connections>
@@ -127,6 +132,11 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eP-Jz-leV">
                                 <rect key="frame" x="16" y="36" width="343" height="407"/>
                                 <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="0.33326198630136988" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -165,6 +175,11 @@
                                 <constraint firstAttribute="width" constant="80" id="e7z-na-Il4"/>
                                 <constraint firstAttribute="height" constant="80" id="fBV-jL-VO1"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <constraints>
@@ -183,6 +198,11 @@
                                 <constraint firstAttribute="height" constant="80" id="itG-3z-w1C"/>
                                 <constraint firstAttribute="width" constant="80" id="rVy-Nl-gpX"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
                     <constraints>

@@ -30,10 +30,8 @@ class MainViewController: UIViewController {
         
         containerView.addSubview(viewA)
         containerView.addSubview(viewB)
-        containerView.cornerRadius(10)
         viewB.alpha = 0
         
-        runAnimationButton.cornerRadius(10)
         updateAnimationValue(self)
     }
 
