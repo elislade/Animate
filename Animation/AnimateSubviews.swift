@@ -8,74 +8,14 @@
 
 import UIKit
 
-struct Animate {
-    typealias AnimationCallback = (animations:() -> Void, completion: (Bool) -> Void)
-    
-    static func subviews(from: UIView, to: UIView, in containerView:UIView) -> AnimationCallback? {
-        var originalPairs = [(from: UIView, to: UIView)]()
-        
-        for view in from.subviews {
-            if view.tag != 0 {
-                if let toV = to.viewWithTag(view.tag) {
-                    originalPairs.append((view, toV))
-                }
-            }
-        }
-        
-        if originalPairs.count == 0 { return nil }
-        
-        var tempPairs = [(from: UIView, to: UIView)]()
-        
-        for pair in originalPairs {
-            guard let from = extrapolate(pair.from, into: containerView) else { return nil }
-            guard let to = extrapolate(pair.to, into: containerView) else { return nil }
-            
-            to.transform = calculateMatchTransform(from: from, to: to)
-            to.alpha = 0
-            
-            pair.from.isHidden = true
-            pair.to.isHidden = true
-            
-            tempPairs.append((from, to))
-        }
-        
-        return (
-            animations: {
-                for pair in tempPairs {
-                    pair.to.transform = CGAffineTransform.identity
-                    pair.to.alpha = 1
-                    
-                    pair.from.transform = self.calculateMatchTransform(from: pair.to, to: pair.from)
-                    pair.from.alpha = 0
-                }
-            },
-            completion: { finished in
-                containerView.removeFromSuperview()
-                for pair in originalPairs {
-                    pair.from.isHidden = false
-                    pair.to.isHidden = false
-                }
-            }
-        )
-    }
+typealias AnimationCallback = (animations:() -> Void, completion: (Bool) -> Void)
 
-    private static func calculateMatchTransform(from: UIView, to: UIView) -> CGAffineTransform {
-        let scaleX = from.frame.width / to.frame.width
-        let scaleY = from.frame.height / to.frame.height
-        let scale = CGAffineTransform(scaleX: scaleX , y: scaleY)
-        
-        let offSetX = from.center.x - to.center.x
-        let offSetY = from.center.y - to.center.y
-        let translate = CGAffineTransform(translationX: offSetX, y: offSetY)
-        
-        return scale.concatenating(translate)
-    }
-
-    private static func extrapolate(_ view: UIView, into container: UIView) -> UIView? {
-        if let snap = view.snapshotView(afterScreenUpdates: false) {
+extension UIView {
+    func snap(into view:UIView) -> UIView?  {
+        if let snap = self.snapshotView(afterScreenUpdates: true) {
             if let parent = view.superview {
-                snap.frame = parent.convert(view.frame, to: container)
-                container.addSubview(snap)
+                snap.frame = parent.convert(self.frame, to: view)
+                view.addSubview(snap)
                 return snap
             } else {
                 return nil
@@ -83,5 +23,56 @@ struct Animate {
         } else {
             return nil
         }
+    }
+    
+    func matchTransform(to toView: UIView) {
+        let scaleX = self.frame.width / toView.frame.width
+        let scaleY = self.frame.height / toView.frame.height
+        let scale = CGAffineTransform(scaleX: scaleX , y: scaleY)
+        
+        let offSetX = toView.center.x - self.center.x
+        let offSetY = toView.center.y - self.center.y
+        let translate = CGAffineTransform(translationX: offSetX, y: offSetY)
+        
+        self.transform = scale.concatenating(translate)
+    }
+    
+    func transitionBlock(to toView:UIView, withTags tags:[Int] = [1,2,3]) -> AnimationCallback? {
+        
+        var transitionViews = [(from:UIView, to:UIView)]()
+        
+        guard let parentView = self.superview else { return nil }
+        let container = UIView(frame: parentView.bounds)
+        parentView.addSubview(container)
+        
+        for tag in tags {
+            if let from = self.viewWithTag(tag)?.snap(into: container), let to = toView.viewWithTag(tag)?.snap(into: container) {
+                to.matchTransform(to: from)
+                to.alpha = 0
+                transitionViews.append((from, to))
+            }
+        }
+        
+        if transitionViews.count == 0 { return nil }
+        
+        self.alpha = 0
+        toView.alpha = 0
+        
+        return (
+            animations: {
+                for pair in transitionViews {
+                    pair.to.transform = .identity
+                    pair.to.alpha = 1
+                    pair.from.matchTransform(to: pair.to)
+                    pair.from.alpha = 0
+                }
+            },
+            completion: { finished in
+                self.alpha = 0
+                toView.alpha = 1
+                
+                container.removeFromSuperview()
+            }
+        )
     }
 }

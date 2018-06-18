@@ -147,11 +147,11 @@
                         <outlet property="dampingValueLabel" destination="grR-Ns-OnX" id="KfU-f3-sZd"/>
                         <outlet property="durationSlider" destination="h9o-Z5-qMN" id="nIn-vt-xB0"/>
                         <outlet property="durationValueLabel" destination="m68-xA-Wxo" id="RCi-Sq-XA8"/>
-                        <outlet property="fromView" destination="Dz0-Kt-GmE" id="ARY-0z-AP8"/>
                         <outlet property="runAnimationButton" destination="rEY-pQ-MGp" id="SzT-qY-ggU"/>
-                        <outlet property="toView" destination="R3A-V7-e9d" id="Bdx-fU-4B2"/>
                         <outlet property="velocitySlider" destination="1aW-Gg-bUv" id="L9f-OP-h3h"/>
                         <outlet property="velocityValueLabel" destination="cBq-gN-Egg" id="HYR-jX-5Rv"/>
+                        <outlet property="viewA" destination="Dz0-Kt-GmE" id="ARY-0z-AP8"/>
+                        <outlet property="viewB" destination="R3A-V7-e9d" id="Bdx-fU-4B2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Dc-UG-UhG" userLabel="First Responder" sceneMemberID="firstResponder"/>

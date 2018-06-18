@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CALayerBacked {
-    var layer:CALayer { get}
+    var layer:CALayer { get }
 }
 
 extension CALayerBacked {

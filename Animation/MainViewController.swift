@@ -22,15 +22,16 @@ class MainViewController: UIViewController {
     @IBOutlet weak var runAnimationButton: UIButton!
     
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet var fromView: UIView!
-    @IBOutlet var toView: UIView!
+    @IBOutlet var viewA: UIView!
+    @IBOutlet var viewB: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        containerView.addSubview(fromView)
-        containerView.addSubview(toView)
+        containerView.addSubview(viewA)
+        containerView.addSubview(viewB)
         containerView.cornerRadius(10)
+        viewB.alpha = 0
         
         runAnimationButton.cornerRadius(10)
         updateAnimationValue(self)
@@ -38,31 +39,32 @@ class MainViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        fromView.frame = containerView.bounds
-        toView.frame = containerView.bounds
+        viewA.frame = containerView.bounds
+        viewB.frame = containerView.bounds
     }
     
-    func roundF(_ value:Float, toPlace place:Float = 100) -> Float {
-        return Float(round(place*value)/place)
-    }
-    
-    func isEnabled(_ bool:Bool) {
-        durationSlider.isEnabled = bool
-        velocitySlider.isEnabled = bool
-        dampingSlider.isEnabled = bool
-        runAnimationButton.isEnabled = bool
+    var isEnabled:Bool = true {
+        didSet {
+            durationSlider.isEnabled = isEnabled
+            velocitySlider.isEnabled = isEnabled
+            dampingSlider.isEnabled = isEnabled
+            runAnimationButton.isEnabled = isEnabled
+        }
     }
     
     @IBAction func updateAnimationValue(_ sender: Any) {
-        durationValueLabel.text = "(\(roundF(durationSlider.value)))"
-        velocityValueLabel.text = "(\(roundF(velocitySlider.value)))"
-        dampingValueLabel.text = "(\(roundF(dampingSlider.value)))"
+        durationValueLabel.text = "(\(decimal(durationSlider.value)))"
+        velocityValueLabel.text = "(\(decimal(velocitySlider.value)))"
+        dampingValueLabel.text = "(\(decimal(dampingSlider.value)))"
     }
     
     @IBAction func runAnimation(_ sender: Any) {
-        isEnabled(false)
+        isEnabled = false
         
-        if let block = Animate.subviews(from: fromView, to: toView, in: containerView) {
+        let fromView:UIView = viewA.alpha == 0 ? viewB : viewA
+        let toView:UIView = viewA.alpha == 0 ? viewA : viewB
+        
+        if let block = fromView.transitionBlock(to: toView) {
             UIView.animate(
                 withDuration: TimeInterval(durationSlider.value),
                 delay: 0,
@@ -70,10 +72,16 @@ class MainViewController: UIViewController {
                 initialSpringVelocity: CGFloat(velocitySlider.value),
                 animations: block.animations,
                 completion: { fin in
-                    block.completion(fin)
-                    self.isEnabled(true)
+                    if fin {
+                        block.completion(fin)
+                        self.isEnabled = true
+                    }
                 }
             )
         }
     }
+}
+
+func decimal(_ float:Float, toPlace place:Float = 100) -> Float {
+    return round(place*float) / place
 }
