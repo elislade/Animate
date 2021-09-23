@@ -12,11 +12,14 @@ class MainViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool { return true }
     
-    @IBOutlet weak var durationSlider: UISlider!
-    @IBOutlet weak var velocitySlider: UISlider!
+    @IBOutlet weak var durationLabel: UILabel!
+    
+    @IBOutlet weak var massSlider: UISlider!
+    @IBOutlet weak var stiffnessSlider: UISlider!
     @IBOutlet weak var dampingSlider: UISlider!
-    @IBOutlet weak var durationValueLabel: UILabel!
-    @IBOutlet weak var velocityValueLabel: UILabel!
+    
+    @IBOutlet weak var massValueLabel: UILabel!
+    @IBOutlet weak var stiffnessValueLabel: UILabel!
     @IBOutlet weak var dampingValueLabel: UILabel!
 
     @IBOutlet weak var runAnimationButton: UIButton!
@@ -24,6 +27,20 @@ class MainViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet var viewA: UIView!
     @IBOutlet var viewB: UIView!
+    
+    
+    var spring: UISpringTimingParameters {
+        UISpringTimingParameters(
+            mass: CGFloat(massSlider.value),
+            stiffness: CGFloat(stiffnessSlider.value),
+            damping: CGFloat(dampingSlider.value),
+            initialVelocity: .zero
+        )
+    }
+    
+    var animator: UIViewPropertyAnimator {
+        UIViewPropertyAnimator(duration: 0, timingParameters: spring)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,45 +58,40 @@ class MainViewController: UIViewController {
         viewB.frame = containerView.bounds
     }
     
-    var isEnabled:Bool = true {
+    var isEnabled: Bool = true {
         didSet {
-            durationSlider.isEnabled = isEnabled
-            velocitySlider.isEnabled = isEnabled
+            massSlider.isEnabled = isEnabled
+            stiffnessSlider.isEnabled = isEnabled
             dampingSlider.isEnabled = isEnabled
             runAnimationButton.isEnabled = isEnabled
         }
     }
     
     @IBAction func updateAnimationValue(_ sender: Any) {
-        durationValueLabel.text = "(\(decimal(durationSlider.value)))"
-        velocityValueLabel.text = "(\(decimal(velocitySlider.value)))"
+        massValueLabel.text = "(\(decimal(massSlider.value)))"
+        stiffnessValueLabel.text = "(\(decimal(stiffnessSlider.value)))"
         dampingValueLabel.text = "(\(decimal(dampingSlider.value)))"
+        durationLabel.text = "Duration \(decimal(animator.duration))s"
     }
     
     @IBAction func runAnimation(_ sender: Any) {
         isEnabled = false
         
-        let fromView:UIView = viewA.alpha == 0 ? viewB : viewA
-        let toView:UIView = viewA.alpha == 0 ? viewA : viewB
+        let fromView: UIView = viewA.alpha == 0 ? viewB : viewA
+        let toView: UIView = viewA.alpha == 0 ? viewA : viewB
         
         if let block = fromView.transitionBlock(to: toView) {
-            UIView.animate(
-                withDuration: TimeInterval(durationSlider.value),
-                delay: 0,
-                usingSpringWithDamping: CGFloat(dampingSlider.value),
-                initialSpringVelocity: CGFloat(velocitySlider.value),
-                animations: block.animations,
-                completion: { fin in
-                    if fin {
-                        block.completion(fin)
-                        self.isEnabled = true
-                    }
-                }
-            )
+            animator.addCompletion({ pos in
+                block.completion(true)
+                self.isEnabled = true
+            })
+            
+            animator.addAnimations(block.animations)
+            animator.startAnimation()
         }
     }
 }
 
-func decimal(_ float:Float, toPlace place:Float = 100) -> Float {
-    return round(place*float) / place
+func decimal<F: BinaryFloatingPoint>(_ float: F, toPlace place: F = 100) -> F {
+    return round(place * float) / place
 }
