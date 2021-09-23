@@ -14,6 +14,8 @@ class MainViewController: UIViewController {
     
     @IBOutlet weak var durationLabel: UILabel!
     
+    var sliders: [UISlider] { [ massSlider, stiffnessSlider, dampingSlider] }
+    
     @IBOutlet weak var massSlider: UISlider!
     @IBOutlet weak var stiffnessSlider: UISlider!
     @IBOutlet weak var dampingSlider: UISlider!
@@ -38,9 +40,11 @@ class MainViewController: UIViewController {
         )
     }
     
-    var animator: UIViewPropertyAnimator {
-        UIViewPropertyAnimator(duration: 0, timingParameters: spring)
+    var duration: Double {
+        UIViewPropertyAnimator(duration: 0, timingParameters: spring).duration
     }
+    
+    var animator: UIViewPropertyAnimator? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,36 +62,44 @@ class MainViewController: UIViewController {
         viewB.frame = containerView.bounds
     }
     
-    var isEnabled: Bool = true {
-        didSet {
-            massSlider.isEnabled = isEnabled
-            stiffnessSlider.isEnabled = isEnabled
-            dampingSlider.isEnabled = isEnabled
-            runAnimationButton.isEnabled = isEnabled
-        }
-    }
-    
     @IBAction func updateAnimationValue(_ sender: Any) {
         massValueLabel.text = "(\(decimal(massSlider.value)))"
         stiffnessValueLabel.text = "(\(decimal(stiffnessSlider.value)))"
         dampingValueLabel.text = "(\(decimal(dampingSlider.value)))"
-        durationLabel.text = "Duration \(decimal(animator.duration))s"
+        durationLabel.text = "Duration \(decimal(duration))s"
     }
     
-    @IBAction func runAnimation(_ sender: Any) {
-        isEnabled = false
-        
+    @IBAction func runAnimation(_ sender: UIButton) {
         let fromView: UIView = viewA.alpha == 0 ? viewB : viewA
         let toView: UIView = viewA.alpha == 0 ? viewA : viewB
         
-        if let block = fromView.transitionBlock(to: toView) {
-            animator.addCompletion({ pos in
-                block.completion(true)
-                self.isEnabled = true
-            })
+        if let an = animator {
+            if an.isRunning {
+                an.pauseAnimation()
+                self.sliders.forEach{ $0.isEnabled = true }
+                sender.setTitle("Play Animation", for: .normal)
+            } else {
+                an.continueAnimation(withTimingParameters: spring, durationFactor: 0)
+                self.sliders.forEach{ $0.isEnabled = false }
+                sender.setTitle("Pause Animation", for: .normal)
+            }
+        } else {
+            self.sliders.forEach{ $0.isEnabled = false }
             
-            animator.addAnimations(block.animations)
-            animator.startAnimation()
+            if let block = fromView.transitionBlock(to: toView) {
+                animator = UIViewPropertyAnimator(duration: 0, timingParameters: spring)
+                animator?.addCompletion({ pos in
+                    block.completion(true)
+                    self.sliders.forEach{ $0.isEnabled = true }
+                    self.animator = nil
+                    sender.setTitle("Run Animation", for: .normal)
+                })
+                
+                sender.setTitle("Pause Animation", for: .normal)
+                
+                animator?.addAnimations(block.animations)
+                animator?.startAnimation()
+            }
         }
     }
 }
