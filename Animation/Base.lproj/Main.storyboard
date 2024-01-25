@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pTn-VV-6q8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pTn-VV-6q8">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,7 +11,7 @@
         <!--Main View Controller-->
         <scene sceneID="ewP-BB-inP">
             <objects>
-                <viewController interfaceStyle="dark" id="pTn-VV-6q8" customClass="MainViewController" customModule="Animation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="pTn-VV-6q8" customClass="MainViewController" customModule="Animation" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="wSk-La-G4K"/>
                         <viewControllerLayoutGuide type="bottom" id="lAY-EV-2VH"/>
@@ -138,7 +138,7 @@
                                 <variation key="heightClass=compact-widthClass=compact" axis="horizontal"/>
                             </stackView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0eP-Jz-leV">
-                                <rect key="frame" x="4" y="4" width="367" height="396.5"/>
+                                <rect key="frame" x="4" y="24" width="367" height="376.5"/>
                                 <color key="backgroundColor" red="0.5" green="0.5" blue="0.5" alpha="0.33326198630136988" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -178,10 +178,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                     <subviews>
                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqK-oT-TCA">
-                            <rect key="frame" x="15" y="15" width="80" height="80"/>
+                            <rect key="frame" x="15" y="15" width="40" height="80"/>
                             <color key="backgroundColor" red="0.28816280182955112" green="0.61377318508577017" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="80" id="e7z-na-Il4"/>
+                                <constraint firstAttribute="width" constant="40" id="e7z-na-Il4"/>
                                 <constraint firstAttribute="height" constant="80" id="fBV-jL-VO1"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
@@ -201,10 +201,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QES-rV-rSJ">
-                            <rect key="frame" x="105" y="105" width="80" height="80"/>
+                            <rect key="frame" x="105" y="145" width="80" height="40"/>
                             <color key="backgroundColor" red="1" green="0.25983164093320554" blue="0.4050113679595031" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="80" id="itG-3z-w1C"/>
+                                <constraint firstAttribute="height" constant="40" id="itG-3z-w1C"/>
                                 <constraint firstAttribute="width" constant="80" id="rVy-Nl-gpX"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>

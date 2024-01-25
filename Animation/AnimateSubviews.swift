@@ -26,8 +26,8 @@ extension UIView {
     }
     
     func matchTransform(to toView: UIView) {
-        let scaleX = self.frame.width / toView.frame.width
-        let scaleY = self.frame.height / toView.frame.height
+        let scaleX = toView.frame.width / self.frame.width
+        let scaleY = toView.frame.height / self.frame.height
         let scale = CGAffineTransform(scaleX: scaleX , y: scaleY)
         
         let offSetX = toView.center.x - self.center.x
